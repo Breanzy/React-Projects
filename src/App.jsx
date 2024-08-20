@@ -4,10 +4,6 @@ import {
     createRoutesFromElements,
     RouterProvider,
 } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import HomeCard from "./components/HomeCard";
-import JobListings from "./components/JobListings";
-import ViewAllJobs from "./components/ViewAllJobs";
 import HomePage from "./pages/HomePage";
 import MainLayout from "./layouts/MainLayout";
 import JobsPage from "./pages/JobsPage";

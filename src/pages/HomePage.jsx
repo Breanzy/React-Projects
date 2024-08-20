@@ -6,8 +6,9 @@ import ViewAllJobs from "../components/ViewAllJobs";
 const Homepage = () => {
     return (
         <>
-            <Hero />;
-            <HomeCard />;
+            <Hero />
+            <HomeCard />
+            <JobListings isHome={true} />
             <ViewAllJobs />
         </>
     );
