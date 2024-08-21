@@ -8,8 +8,11 @@ const JobListings = ({ isHome = false }) => {
 
     useEffect(() => {
         const fetchJobs = async () => {
+            const apiUrl = isHome
+                ? "/api/jobs?_limit=3"
+                : "/api/jobs";
             try {
-                const res = await fetch("http://localhost:8000/jobs");
+                const res = await fetch(apiUrl);
                 const data = await res.json();
                 setJobs(data);
             } catch (error) {
@@ -31,13 +34,11 @@ const JobListings = ({ isHome = false }) => {
                 {loading ? (
                     <Spinner loading={loading} />
                 ) : (
-                    <>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {jobs.map((job) => (
-                                <JobListing key={job.id} job={job} />
-                            ))}
-                        </div> 
-                    </>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {jobs.map((job) => (
+                            <JobListing key={job.id} job={job} />
+                        ))}
+                    </div>
                 )}
             </div>
         </section>
