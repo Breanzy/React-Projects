@@ -2,7 +2,7 @@
 // import Spinner from "../components/Spinner";
 
 import { useParams, useLoaderData } from "react-router-dom";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaMapMarker } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const JobPage = () => {
@@ -56,7 +56,7 @@ const JobPage = () => {
                                     {job.title}
                                 </h1>
                                 <div className="text-gray-500 mb-4 flex align-middle justify-center md:justify-start">
-                                    <i className="fa-solid fa-location-dot text-lg text-orange-700 mr-2"></i>
+                                    <FaMapMarker className="text-orange=-700 mr-1"/>
                                     <p className="text-orange-700">
                                         {job.location}
                                     </p>
@@ -86,16 +86,10 @@ const JobPage = () => {
                                     Company Info
                                 </h3>
 
-                                <h2 className="text-2xl">NewTek Solutions</h2>
+                                <h2 className="text-2xl">{job.company.name}</h2>
 
                                 <p className="my-2">
-                                    NewTek Solutions is a leading technology
-                                    company specializing in web development and
-                                    digital solutions. We pride ourselves on
-                                    delivering high-quality products and
-                                    services to our clients while fostering a
-                                    collaborative and innovative work
-                                    environment.
+                                    {job.company.description}
                                 </p>
 
                                 <hr className="my-4" />
@@ -103,13 +97,13 @@ const JobPage = () => {
                                 <h3 className="text-xl">Contact Email:</h3>
 
                                 <p className="my-2 bg-indigo-100 p-2 font-bold">
-                                    contact@newteksolutions.com
+                                    {job.company.contactEmail}
                                 </p>
 
                                 <h3 className="text-xl">Contact Phone:</h3>
 
                                 <p className="my-2 bg-indigo-100 p-2 font-bold">
-                                    555-555-5555
+                                    {job.company.contactPhone}
                                 </p>
                             </div>
 
@@ -117,12 +111,12 @@ const JobPage = () => {
                                 <h3 className="text-xl font-bold mb-6">
                                     Manage Job
                                 </h3>
-                                <a
-                                    href="/add-job.html"
+                                <Link
+                                    to={`jobs/edit/${job.id}`}
                                     className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
                                 >
                                     Edit Job
-                                </a>
+                                </Link>
                                 <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
                                     Delete Job
                                 </button>
