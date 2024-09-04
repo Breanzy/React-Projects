@@ -1,11 +1,12 @@
 // import { useState, useEffect } from "react";
 // import Spinner from "../components/Spinner";
 
-import { useParams, useLoaderData } from "react-router-dom";
+import { useParams, useLoaderData, useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaMapMarker } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const JobPage = () => {
+const JobPage = ({ deleteJob }) => {
     const { id } = useParams();
     const job = useLoaderData();
 
@@ -30,6 +31,22 @@ const JobPage = () => {
     //     fetchJob();
     // }, []);
     // return loading ? <Spinner /> : <h1>{job.title}</h1>;
+
+    const navigate = useNavigate();
+
+    const onDeleteClick = (jobId) => {
+        const confirm = window.confirm(
+            "Are you sure you want to delete this listing?"
+        );
+
+        if (!confirm) return;
+
+        deleteJob(jobId);
+
+        toast.success("Job Deleted Successfully")
+
+        navigate(`/jobs`);
+    };
 
     return (
         <>
@@ -56,7 +73,7 @@ const JobPage = () => {
                                     {job.title}
                                 </h1>
                                 <div className="text-gray-500 mb-4 flex align-middle justify-center md:justify-start">
-                                    <FaMapMarker className="text-orange=-700 mr-1"/>
+                                    <FaMapMarker className="text-orange=-700 mr-1" />
                                     <p className="text-orange-700">
                                         {job.location}
                                     </p>
@@ -68,9 +85,7 @@ const JobPage = () => {
                                     Job Description
                                 </h3>
 
-                                <p className="mb-4">
-                                    {job.description}
-                                </p>
+                                <p className="mb-4">{job.description}</p>
 
                                 <h3 className="text-indigo-800 text-lg font-bold mb-2">
                                     Salary
@@ -112,12 +127,15 @@ const JobPage = () => {
                                     Manage Job
                                 </h3>
                                 <Link
-                                    to={`jobs/edit/${job.id}`}
+                                    to={`/edit-job/${job.id}`}
                                     className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
                                 >
                                     Edit Job
                                 </Link>
-                                <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
+                                <button
+                                    onClick={() => onDeleteClick(job.id)}
+                                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
+                                >
                                     Delete Job
                                 </button>
                             </div>
